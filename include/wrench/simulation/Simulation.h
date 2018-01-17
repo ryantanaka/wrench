@@ -21,6 +21,8 @@
 #include "wrench/wms/WMS.h"
 #include "wrench/workflow/job/StandardJob.h"
 
+#include "../../hello_world/HelloWorld.h"
+
 
 namespace wrench {
 
@@ -53,6 +55,9 @@ namespace wrench {
         void setFileRegistryService(std::unique_ptr<FileRegistryService> file_registry_service);
 
         void setNetworkProximityService(std::unique_ptr<NetworkProximityService> network_proximity_service);
+
+        // HelloWorld
+        void setHelloWorldService(std::unique_ptr<HelloWorld> hw);
 
         void stageFile(WorkflowFile *file, StorageService *storage_service);
 
@@ -110,6 +115,9 @@ namespace wrench {
         std::set<std::unique_ptr<ComputeService>> compute_services;
 
         std::set<std::unique_ptr<StorageService>> storage_services;
+        
+        // HelloWorld
+        std::unique_ptr<HelloWorld> hw = nullptr;
 
         void check_simulation_setup();
         void start_all_processes();

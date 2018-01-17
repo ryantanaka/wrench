@@ -286,6 +286,12 @@ namespace wrench {
         if (this->network_proximity_service) {
           this->network_proximity_service->start();
         }
+
+        // HelloWorld
+        if (this->hw) {
+          this->hw->start();
+        }
+
       } catch (std::runtime_error &e) {
         throw;
       }
@@ -544,6 +550,11 @@ namespace wrench {
      */
     double Simulation::getCurrentSimulatedDate() {
       return S4U_Simulation::getClock();
+    }
+
+    // HelloWorld
+    void Simulation::setHelloWorldService(std::unique_ptr<HelloWorld> hw) {
+      this->hw = std::move(hw);
     }
 
 };
