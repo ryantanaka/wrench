@@ -119,6 +119,7 @@ namespace wrench {
       WRENCH_INFO("Simple WMS Daemon is shutting down the File Registry Service");
       this->simulation->getFileRegistryService()->stop();
 
+      this->simulation->getNetworkProximityService()->stop();
       /***
        *** NO NEED TO stop/kill the Managers (will soon be out of scope, and
        *** destructor simply called kill() on their actors.
