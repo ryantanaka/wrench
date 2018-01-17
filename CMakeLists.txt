@@ -174,6 +174,9 @@ set(SOURCE_FILES
         src/wrench/util/PointerUtil.cpp
         src/wrench/util/MessageManager.cpp
         src/wrench/util/TraceFileLoader.cpp
+
+        hello_world/HelloWorld.cpp
+        hello_world/HelloWorld.h
         )
 
 # test files
