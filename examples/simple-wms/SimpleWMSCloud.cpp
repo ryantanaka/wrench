@@ -8,6 +8,7 @@
  */
 
 #include <iostream>
+#include <memory>
 #include <wrench.h>
 
 #include "SimpleWMS.h"
@@ -105,6 +106,17 @@ int main(int argc, char **argv) {
     std::cerr << "Error: " << e.what() << std::endl;
     std::exit(1);
   }
+
+  // TRYING TO ADD HelloWorld Service
+  std::cerr << "Instantiating a HelloWorld service" << std::endl;
+  simulation.setHelloWorldService(std::unique_ptr<wrench::HelloWorld>(
+          new wrench::HelloWorld(hostname_list[0])
+  ));
+
+  std::vector<std::string> hostnamelist_copy(hostname_list);
+  simulation.setNetworkProximityService(std::unique_ptr<wrench::NetworkProximityService>
+                                                (new wrench::NetworkProximityService(hostname_list[0],
+                                                hostnamelist_copy, 1024, 100, 0)));
 
   /* Instantiate a WMS, to be stated on some host (wms_host), which is responsible
    * for executing the workflow, and uses a scheduler (CloudScheduler). That scheduler
