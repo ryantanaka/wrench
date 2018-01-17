@@ -29,7 +29,7 @@ namespace wrench {
 
         WRENCH_INFO("Hello World Service starting on host %s!", S4U_Simulation::getHostName().c_str());
 
-        std::cerr << "PRINTING FROM HELLOWORLD" << std::endl;
+        WRENCH_INFO("PRINTING FROM HELLOWORLD");
 
         return 0;
     }

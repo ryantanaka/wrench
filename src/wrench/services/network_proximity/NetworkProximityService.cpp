@@ -38,7 +38,7 @@ namespace wrench {
      * @param hosts_in_network: the hosts running in the network
      * @param message_size: the message size (in bytes) exchanged by monitoring daemon
      * @param measurement_period: the time (in seconds) between measurements at a daemon
-     * @param noise: a random noise added to the daemon (TODO: more explanation)
+     * @param noise: a random noise added to the measurement period to avoid weird synchronicity behaviors
      * @param plist: a property list ({} means "use all defaults")
      */
     NetworkProximityService::NetworkProximityService(std::string hostname,
@@ -53,9 +53,9 @@ namespace wrench {
      * @brief Constructor
      * @param hostname: the hostname on which to start the service
      * @param hosts_in_network: the hosts running in the network
-     * @param message_size: TODO
-     * @param measurement_period: TODO
-     * @param noise: TODO
+     * @param message_size: the message size (in bytes) exchanged by monitoring daemon
+     * @param measurement_period: the time (in seconds) between measurements at a daemon
+     * @param noise: a random noise added to the measurement period to avoid weird synchronicity behaviors
      * @param plist: a property list ({} means "use all defaults")
      * @param suffix: suffix to append to the service name and mailbox
      */

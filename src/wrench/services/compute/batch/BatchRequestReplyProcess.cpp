@@ -1,6 +1,4 @@
-//
-// Created by Suraj Pandey on 10/17/17.
-//
+
 
 #include <wrench/logging/TerminalOutput.h>
 #include <wrench/simgrid_S4U_util/S4U_Simulation.h>
