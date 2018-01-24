@@ -71,7 +71,6 @@ set(HEADER_FILES
         include/wrench/services/storage/simple/SimpleStorageServiceProperty.h
         include/wrench/services/file_registry/FileRegistryService.h
         include/wrench/services/file_registry/FileRegistryServiceProperty.h
-        include/wrench/services/network_proximity/NetworkProximityService.h
         include/wrench/services/network_proximity/NetworkProximityServiceProperty.h
         include/wrench/services/network_proximity/NetworkProximityDaemon.h
         include/wrench/simulation/Simulation.h
@@ -177,6 +176,9 @@ set(SOURCE_FILES
 
         hello_world/HelloWorld.cpp
         hello_world/HelloWorld.h
+
+        src/wrench/services/network_proximity/alltoall/AllToAll.cpp
+        src/wrench/services/network_proximity/alltoall/AllToAll.h
         )
 
 # test files
@@ -196,7 +198,7 @@ set(TEST_FILES
         test/simulation/MultihostMulticoreComputeServiceTestPilotJobs.cpp
         test/simulation/MultihostMulticoreComputeServiceSchedulingTest.cpp
         test/simulation/TestWithFork.h
-        test/simulation/HelloWorldTest.cpp
+        # test/simulation/HelloWorldTest.cpp
         test/simulation/StandardJobExecutorTest.cpp
         test/simulation/NetworkProximityTest.cpp
         test/simulation/BatchServiceTest.cpp
