@@ -55,6 +55,10 @@ namespace wrench {
       // Perform static optimizations
       runStaticOptimizations();
 
+      // trying ALlToAll
+      double result = this->simulation->getNetworkProximityService()->query(std::make_pair("Jupiter", "Tremblay"));
+      WRENCH_INFO("RESULLLLLLT %f", result);
+
       while (true) {
 
         // Get the ready tasks

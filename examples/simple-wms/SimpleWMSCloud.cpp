@@ -14,6 +14,9 @@
 #include "SimpleWMS.h"
 #include "scheduler/CloudScheduler.h"
 
+// why do i need this include?
+#include "../../src/wrench/services/network_proximity/alltoall/AllToAll.h"
+
 /**
  * @brief An example that demonstrate how to run a simulation of a simple Workflow
  *        Management System (WMS) (implemented in SimpleWMS.[cpp|h]).
@@ -110,13 +113,15 @@ int main(int argc, char **argv) {
   // TRYING TO ADD HelloWorld Service
   std::cerr << "Instantiating a HelloWorld service" << std::endl;
   simulation.setHelloWorldService(std::unique_ptr<wrench::HelloWorld>(
-          new wrench::HelloWorld(hostname_list[0])
-  ));
+          new wrench::HelloWorld("Jupiter")));
 
-  std::vector<std::string> hostnamelist_copy(hostname_list);
-  simulation.setNetworkProximityService(std::unique_ptr<wrench::NetworkProximityService>
-                                                (new wrench::NetworkProximityService(hostname_list[0],
-                                                hostnamelist_copy, 1024, 100, 0)));
+    // Trying to ADD AllToAll Service
+  std::vector<std::string> hostname_list_copy(hostname_list);
+    std::string hostname_copy(hostname_list[0]);
+  wrench::AllToAll all_to_all_service(hostname_copy, hostname_list_copy, 1024, 0.0, 0);
+  simulation.setNetworkProximityService(std::unique_ptr<wrench::NetworkProximityService>(&all_to_all_service));
+
+
 
   /* Instantiate a WMS, to be stated on some host (wms_host), which is responsible
    * for executing the workflow, and uses a scheduler (CloudScheduler). That scheduler
