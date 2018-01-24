@@ -13,7 +13,7 @@ namespace wrench {
 
     AllToAll(std::string hostname,
              std::vector<std::string> hosts_in_network,
-             int message_size, double measurement_period, int noise,
+             double measurement_period, int noise,
              std::map<std::string, std::string> = {}); 
 
     void start();

@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
     // Trying to ADD AllToAll Service
   std::vector<std::string> hostname_list_copy(hostname_list);
     std::string hostname_copy(hostname_list[0]);
-  wrench::AllToAll all_to_all_service(hostname_copy, hostname_list_copy, 1024, 0.0, 0);
+  wrench::AllToAll all_to_all_service(hostname_copy, hostname_list_copy, 10.0, 0, {{wrench::NetworkProximityServiceProperty::NETWORK_PROXIMITY_TRANSFER_MESSAGE_PAYLOAD, "2048"}});
   simulation.setNetworkProximityService(std::unique_ptr<wrench::NetworkProximityService>(&all_to_all_service));
 
 

@@ -15,12 +15,13 @@ namespace wrench {
        {NetworkProximityServiceProperty::DAEMON_STOPPED_MESSAGE_PAYLOAD , "1024"},
        {NetworkProximityServiceProperty::NETWORK_DB_LOOKUP_MESSAGE_PAYLOAD , "1024"},
        {NetworkProximityServiceProperty::NETWORK_DAEMON_CONTACT_ANSWER_PAYLOAD , "1024"},
+       {NetworkProximityServiceProperty::NETWORK_PROXIMITY_TRANSFER_MESSAGE_PAYLOAD, "1024"},
        {NetworkProximityServiceProperty::LOOKUP_OVERHEAD , "0.0"},
       };
 
       NetworkProximityService(std::string hostname,
                               std::vector<std::string> hosts_in_network,
-                              int message_size, double measurement_period, int noise,
+                              double measurement_period, int noise,
                               std::map<std::string, std::string> plist,
                               std::string suffix = "");
 
@@ -30,19 +31,19 @@ namespace wrench {
     public:
       ~NetworkProximityService();
 
-      NetworkProximityService(std::string hostname,
-                              std::vector<std::string> hosts_in_network,
-                              int message_size, double measurement_period, int noise,
-                              std::map<std::string, std::string> = {});
+//      NetworkProximityService(std::string hostname,
+//                              std::vector<std::string> hosts_in_network,
+//                              int message_size, double measurement_period, int noise,
+//                              std::map<std::string, std::string> = {});
 
-      virtual void start() = 0;
+//      virtual void start() = 0;
 
       virtual double query(std::pair<std::string, std::string> hosts) = 0;
 
     private:
       friend class Simulation;
 
-      virtual int main() = 0;
+//      virtual int main() = 0;
 
       virtual bool processNextMessage() = 0;
   };

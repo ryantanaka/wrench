@@ -21,10 +21,10 @@ namespace wrench {
 
   AllToAll::AllToAll(std::string hostname,
                      std::vector<std::string> hosts_in_network,
-                     int message_size, double measurement_period, int noise,
+                     double measurement_period, int noise,
                      std::map<std::string, std::string> plist):
-    NetworkProximityService(std::move(hostname), std::move(hosts_in_network), message_size,  
-                            noise, measurement_period, std::move(plist), "") {
+    NetworkProximityService(std::move(hostname), std::move(hosts_in_network),
+                            measurement_period, noise, std::move(plist), "") {
     }
 
   void AllToAll::start() {
@@ -34,6 +34,7 @@ namespace wrench {
       }
 
       this->start_daemon(this->hostname, false);
+      this->state = Service::UP;
 
     } catch (std::runtime_error &e) {
       throw; 
