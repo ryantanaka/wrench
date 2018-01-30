@@ -26,7 +26,7 @@ namespace wrench {
      *
      * @param id: a unique string id
      * @param flops: number of flops
-     * @param min_num_cores: the minimum number of cores required to run the task
+     * @param min_num_cores: the minimum number of cores required to run the task
      * @param max_num_cores: the maximum number of cores that can be used by the task (0 meanx infinity)
      * @param parallel_efficiency: the multi-core parallel efficiency
      *
@@ -215,7 +215,7 @@ namespace wrench {
       // Get the root node
       pugi::xml_node dag = dax_tree.child("adag");
 
-      // Iterate through the "job" nodes
+      // Iterate through the "job" nodes to create all tasks
       for (pugi::xml_node job = dag.child("job"); job; job = job.next_sibling("job")) {
         WorkflowTask *task;
         // Get the job attributes
@@ -228,7 +228,6 @@ namespace wrench {
         }
         // Create the task
         task = this->addTask(id + "_" + name, flops, num_procs);
-
 
         // Go through the children "uses" nodes
         for (pugi::xml_node uses = job.child("uses"); uses; uses = uses.next_sibling("uses")) {
@@ -255,6 +254,23 @@ namespace wrench {
           // TODO: Are there other types of "link" values?
         }
       }
+
+      // Iterate through the "child" nodes to handle control dependencies
+      for (pugi::xml_node child = dag.child("child"); child; child = child.next_sibling("child")) {
+
+        WorkflowTask *child_task = this->getWorkflowTaskByID(child.attribute("ref").value());
+
+        // Go through the children "parent" nodes
+        for (pugi::xml_node parent = child.child("parent"); parent; parent = parent.next_sibling("parent")) {
+          std::string parent_id = parent.attribute("ref").value();
+
+          WorkflowTask *parent_task = this->getWorkflowTaskByID(parent_id);
+          this->addControlDependency(parent_task, child_task);
+
+        }
+      }
+
+
     }
 
     /**
