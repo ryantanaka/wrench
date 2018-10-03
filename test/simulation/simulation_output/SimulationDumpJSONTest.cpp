@@ -26,8 +26,16 @@ class SimulationDumpJSONTest : public ::testing::Test {
 public:
     wrench::WorkflowTask *t1 = nullptr;
     wrench::WorkflowTask *t2 = nullptr;
+    wrench::WorkflowTask *t3 = nullptr;
+    wrench::WorkflowTask *t4 = nullptr;
+
+    wrench::WorkflowFile *f1 = nullptr;
+    wrench::WorkflowFile *f2 = nullptr;
+    wrench::WorkflowFile *f3 = nullptr;
+    wrench::WorkflowFile *f4 = nullptr;
 
     void do_SimulationDumpWorkflowExecutionJSON_test();
+    void do_SimulationDumpWorkflowGraphJSON_test();
 
 protected:
     SimulationDumpJSONTest() {
@@ -59,6 +67,16 @@ protected:
 };
 
 void SimulationDumpJSONTest::do_SimulationDumpWorkflowExecutionJSON_test() {
+    int argc = 1;
+    auto argv = (char **) calloc(1, sizeof(char *));
+    argv[0] = strdup("simulation_dump_workflow_execution_test");
+
+    std::unique_ptr<wrench::Simulation> simulation = std::unique_ptr<wrench::Simulation>(new wrench::Simulation());
+
+    simulation->init(&argc, argv);
+
+    simulation->instantiatePlatform(platform_file_path);
+
     workflow = std::unique_ptr<wrench::Workflow>(new wrench::Workflow());
 
     t1 = workflow->addTask("task1", 1, 1, 1, 1.0, 0);
@@ -75,16 +93,6 @@ void SimulationDumpJSONTest::do_SimulationDumpWorkflowExecutionJSON_test() {
     t2->setStartDate(3.0);
     t2->setExecutionHost("host2");
     t2->setNumCoresAllocated(20);
-
-    int argc = 1;
-    auto argv = (char **) calloc(1, sizeof(char *));
-    argv[0] = strdup("simulation_dump_workflow_execution_test");
-
-    std::unique_ptr<wrench::Simulation> simulation = std::unique_ptr<wrench::Simulation>(new wrench::Simulation());
-
-    simulation->init(&argc, argv);
-
-    simulation->instantiatePlatform(platform_file_path);
 
     const nlohmann::json EXPECTED_JSON = R"(
         [
@@ -166,3 +174,23 @@ TEST_F(SimulationDumpJSONTest, SimulationDumpJSONTest) {
     DO_TEST_WITH_FORK(do_SimulationDumpWorkflowExecutionJSON_test);
 }
 
+void SimulationDumpJSONTest::do_SimulationDumpWorkflowGraphJSON_test() {
+    int argc = 1;
+    auto argv = (char **) calloc(1, sizeof(char *));
+    argv[0] = strdup("simulation_dump_workflow_execution_test");
+
+    std::unique_ptr<wrench::Simulation> simulation = std::unique_ptr<wrench::Simulation>(new wrench::Simulation());
+
+    simulation->init(&argc, argv);
+
+    workflow = std::unique_ptr<wrench::Workflow>(new wrench::Workflow());
+
+    t1 = workflow->addTask("task1", 1, 1, 1, 1.0, 0);
+    t2 = workflow->addTask("task2", 2, 1, 1, 1.0, 0);
+    t3 = workflow->addTask("task3", 3, 1, 1, 1.0, 0);
+    t4 = workflow->addTask("task4", 4, 1, 1, 1.0, 0);
+
+
+
+
+}
